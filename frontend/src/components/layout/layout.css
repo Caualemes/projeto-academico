@@ -1,0 +1,122 @@
+#defaultLayout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+#defaultLayout aside {
+  width: 260px;
+  background: linear-gradient(180deg, #4f46e5 0%, #312e81 100%);
+  padding: 1.5rem;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1rem;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+}
+
+#defaultLayout aside > a {
+  display: flex;
+  align-items: center;
+  padding: 0.85rem 1.25rem;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  margin-bottom: 0.5rem;
+}
+
+#defaultLayout aside > a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+#defaultLayout .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
+  overflow: hidden;
+}
+
+#defaultLayout header {
+  height: 72px;
+  padding: 0 2rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 5;
+}
+
+#defaultLayout header .system-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: -0.025em;
+}
+
+#defaultLayout header .username {
+  font-weight: 600;
+  color: #475569;
+}
+
+#defaultLayout header .user-info {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+#defaultLayout header .btn-logout {
+  padding: 0.5rem 1.15rem;
+  background-color: #f1f5f9;
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  border: 1px solid #e2e8f0;
+}
+
+#defaultLayout header .btn-logout:hover {
+  background-color: #fee2e2;
+  color: #ef4444;
+  border-color: #fca5a5;
+}
+
+#defaultLayout main {
+  flex: 1;
+  padding: 2.5rem;
+  overflow-y: auto;
+}
+
+.animated {
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

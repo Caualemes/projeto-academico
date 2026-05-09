@@ -1,0 +1,62 @@
+.records {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 0 0.5rem;
+}
+
+.records .input-search,
+.records .select-page {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.records label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.records input[type="text"] {
+  padding: 0.65rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #f8fafc;
+  color: #1e293b;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+  min-width: 250px;
+}
+
+.records input[type="text"]:focus {
+  border-color: #6366f1;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.records select {
+  padding: 0.65rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #f8fafc;
+  color: #1e293b;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+
+.records select:hover {
+  border-color: #94a3b8;
+}
+
+.records select:focus {
+  border-color: #6366f1;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}

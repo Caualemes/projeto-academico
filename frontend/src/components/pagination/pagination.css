@@ -1,0 +1,77 @@
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid #f0f0f0;
+}
+
+.pagination-info-text {
+  margin: 0;
+  color: #8c8c8c;
+  font-size: 0.875rem;
+}
+
+.pagination-wrapper {
+  display: flex;
+}
+
+.pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  gap: 0.35rem;
+  align-items: center;
+  margin: 0;
+}
+
+.page-item {
+  display: flex;
+}
+
+.page-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 0.5rem;
+  font-size: 0.875rem;
+  color: #595959;
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.page-link:hover:not(:disabled) {
+  background-color: #f5f5f5;
+  color: #262626;
+}
+
+.page-link:focus {
+  outline: none;
+  background-color: #f5f5f5;
+}
+
+.page-item.active .page-link {
+  color: #1890ff;
+  background-color: #e6f7ff;
+  font-weight: 500;
+}
+
+.page-link:disabled,
+.page-item.disabled .page-link {
+  color: #d9d9d9;
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
+.page-link svg {
+  font-size: 0.75rem;
+}

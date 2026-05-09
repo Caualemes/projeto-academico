@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@nestjs/config": "^4.0.2",
+    "config": "^4.0.0"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "dev:react": "npm --prefix apps/react_academico run dev",
+    "dev:nest": "npm --prefix apps/nest_academico run start:dev",
+    "build:react": "npm --prefix apps/react_academico run build",
+    "build:nest": "npm --prefix apps/nest_academico run build"
+  }
+}
