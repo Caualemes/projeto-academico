@@ -50,7 +50,7 @@ export class UsuarioServiceCreate {
 
     const savedUsuario = await this.usuarioRepository.save(usuarioData);
 
-    const confirmLink = `http://localhost:5173/confirmar-email?email=${encodeURIComponent(savedUsuario.email)}&token=${activationToken}`;
+    const confirmLink = `http://localhost:3000/confirmar-email?email=${encodeURIComponent(savedUsuario.email)}&token=${activationToken}`;
 
     console.log(`\n\n[DEBUG] Link de Ativação de Conta: ${confirmLink}\n\n`);
 

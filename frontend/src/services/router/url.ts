@@ -23,4 +23,5 @@ function gerarRotaSistema(entity: string) {
 export const ROTA = {
   CIDADE: gerarRotaSistema(CIDADE.ALIAS),
   USUARIO: gerarRotaSistema('usuario'),
+  PROFESSOR: gerarRotaSistema('professor'),
 };

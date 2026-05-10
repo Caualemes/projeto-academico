@@ -1,30 +1,32 @@
 import { useCallback, useEffect, useState, type ChangeEvent, type MouseEvent } from 'react';
-import { FaPlus, FaCheckCircle, FaRegTrashAlt } from 'react-icons/fa';
 import { BsPencilSquare } from 'react-icons/bs';
+import { FaPlus, FaRegTrashAlt } from 'react-icons/fa';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import PaginationFooter from '../../components/pagination/PaginationFooter';
 import SearchBar from '../../components/search/SearchBar';
+import { apiGetProfessor, type SearchParams } from '../../services/professor/api/api.professor';
+import { PROFESSOR } from '../../services/professor/constants/professor.constants';
+import type { Professor } from '../../services/professor/type/Professor';
 import { ROTA } from '../../services/router/url';
-import { apiGetUsuarios, type SearchParams } from '../../services/usuario/api/api.usuario';
-import type { Usuario } from '../../services/usuario/type/Usuario';
 
-export default function ListarUsuario() {
-  const [models, setModels] = useState<Usuario[]>([]);
+export default function ListarProfessor() {
+  const [models, setModels] = useState<Professor[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [recordPerPages, setRecordPerPages] = useState<number>(5);
   const [pageSize, setPageSize] = useState<number>(5);
   const [totalPages, setTotalPages] = useState(0);
   const [totalElements, setTotalElements] = useState(0);
 
-  const [props, setProps] = useState<string>('firstName');
+  const [props, setProps] = useState<string>('NOME_PROFESSOR');
   const [order, setOrder] = useState<string>('ASC');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  const buscarTodosUsuarios = useCallback(
+
+  const buscarTodosProfessores = useCallback(
     async (params: SearchParams): Promise<any | null> => {
       try {
-        const response = await apiGetUsuarios(params);
+        const response = await apiGetProfessor(params);
         return response.data;
       } catch (error: any) {
         console.log(error);
@@ -35,7 +37,7 @@ export default function ListarUsuario() {
   );
 
   useEffect(() => {
-    async function getUsuarios() {
+    async function getProfessores() {
       const params = {
         page: currentPage,
         pageSize: pageSize,
@@ -43,24 +45,22 @@ export default function ListarUsuario() {
         order: order,
         searchTerm: searchTerm === '' ? null : searchTerm,
       };
-      const data = await buscarTodosUsuarios(params);
-      if (data && data.dados) {
-        const { content, page, pageSize, totalElements, totalPages } = data.dados;
+      const data = await buscarTodosProfessores(params);
+      if (data) {
+        const { content, page, pageSize: size, totalElements: total, totalPages: pages } = data.dados;
         setModels(content);
         setCurrentPage(page);
-        setPageSize(pageSize);
-        setTotalElements(totalElements);
-        setTotalPages(totalPages);
+        setPageSize(size);
+        setTotalElements(total);
+        setTotalPages(pages);
       }
     }
-    
-    // Debounce da pesquisa para não congelar e agredir o back-end
     const delayDebounceFn = setTimeout(() => {
-        getUsuarios();
+      getProfessores();
     }, 400);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [currentPage, pageSize, searchTerm, order, props, buscarTodosUsuarios]);
+  }, [currentPage, pageSize, searchTerm, order, props, buscarTodosProfessores]);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(Number(pageNumber));
@@ -72,10 +72,10 @@ export default function ListarUsuario() {
     setCurrentPage(1);
   };
 
-  const onSortProps = (e: MouseEvent<HTMLButtonElement>, propBase: string) => {
+  const onSortProps = (e: MouseEvent<HTMLButtonElement>, propsField: string) => {
     e.preventDefault();
     const dir = order && order === 'ASC' ? 'DESC' : 'ASC';
-    setProps(propBase);
+    setProps(propsField);
     setOrder(dir);
   };
 
@@ -89,58 +89,59 @@ export default function ListarUsuario() {
             alignItems: 'center',
           }}
         >
-          <h2>Lista de Usuários</h2>
-          <Link to={ROTA.USUARIO.CRIAR} className="btn btn-add">
+          <h2>{PROFESSOR.TITULO.LISTA}</h2>
+          <Link to={`${ROTA.PROFESSOR.CRIAR}`} className="btn btn-add">
             <span className="btn-icon">
               <i>
                 <FaPlus />
               </i>
             </span>
-            Nova Adição
+            Novo
           </Link>
         </div>
-        
         <SearchBar
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           recordsPerPage={recordPerPages}
           handleRecordsPerPageChange={handleRecordsPerPageChange}
         />
-        
+        <br />
         <table>
           <thead>
             <tr>
               <th>
-                <button onClick={(e) => onSortProps(e, 'firstName')}>Nome Completo</button>
+                <button onClick={(e) => onSortProps(e, 'COD_PROFESSOR')}>
+                  {PROFESSOR.LABEL.CODIGO}
+                </button>
               </th>
               <th>
-                <button onClick={(e) => onSortProps(e, 'username')}>Username</button>
+                <button onClick={(e) => onSortProps(e, 'NOME_PROFESSOR')}>
+                  {PROFESSOR.LABEL.NOME}
+                </button>
               </th>
               <th>
-                <button onClick={(e) => onSortProps(e, 'email')}>Email de Contato</button>
+                <button onClick={(e) => onSortProps(e, 'ID_USUARIO')}>
+                  {PROFESSOR.LABEL.USUARIO}
+                </button>
               </th>
-              <th className="center">Status</th>
-              <th className="center">Ação</th>
+              <th className="center actions">Ação</th>
             </tr>
           </thead>
           <tbody>
-            {models?.map((model, index) => (
-              <tr key={model.idUsuario || index}>
-                <td><strong>{model.nomeCompleto}</strong></td>
-                <td>{model.username}</td>
-                <td>{model.email}</td>
-                <td className="center" style={{color: '#10b981'}}>
-                   <FaCheckCircle /> Verificado
-                </td>
+            {models?.map((model) => (
+              <tr key={model.idProfessor}>
+                <td>{model.codProfessor}</td>
+                <td>{model.nomeProfessor}</td>
+                <td>{model.usuarioNome || model.idUsuario}</td>
                 <td className="center actions">
                   <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
-                    <Link to={`${ROTA.USUARIO.ATUALIZAR}/${model.idUsuario}`} className="btn-minimal text-primary" title="Editar">
+                    <Link to={`${ROTA.PROFESSOR.ATUALIZAR}/${model.idProfessor}`} className="btn-minimal text-primary" title="Editar">
                       <BsPencilSquare size={18} />
                     </Link>
-                    <Link to={`${ROTA.USUARIO.EXCLUIR}/${model.idUsuario}`} className="btn-minimal text-danger" title="Excluir">
+                    <Link to={`${ROTA.PROFESSOR.EXCLUIR}/${model.idProfessor}`} className="btn-minimal text-danger" title="Excluir">
                       <FaRegTrashAlt size={18} />
                     </Link>
-                    <Link to={`${ROTA.USUARIO.POR_ID}/${model.idUsuario}`} className="btn-minimal text-info" title="Visualizar">
+                    <Link to={`${ROTA.PROFESSOR.POR_ID}/${model.idProfessor}`} className="btn-minimal text-info" title="Visualizar">
                       <FaMagnifyingGlass size={18} />
                     </Link>
                   </div>

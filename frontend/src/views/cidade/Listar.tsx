@@ -139,7 +139,7 @@ export default function ListarCidade() {
                 </button>
               </th>
 
-              <th className="center actions" colSpan={3}>
+              <th className="center actions">
                 Ação
               </th>
             </tr>
@@ -150,36 +150,17 @@ export default function ListarCidade() {
                 <td>{model.codCidade}</td>
                 <td>{model.nomeCidade}</td>
                 <td className="center actions">
-                  <Link
-                    to={`${ROTA.CIDADE.ATUALIZAR}/${model.idCidade}`}
-                    className="btn btn-edit"
-                  >
-                    <span className="btn-icon">
-                      <i>
-                        <BsPencilSquare />
-                      </i>
-                    </span>
-                  </Link>
-                  <Link
-                    to={`${ROTA.CIDADE.EXCLUIR}/${model.idCidade}`}
-                    className="btn btn-delete"
-                  >
-                    <span className="btn-icon">
-                      <i>
-                        <FaRegTrashAlt />
-                      </i>
-                    </span>
-                  </Link>
-                  <Link
-                    to={`${ROTA.CIDADE.POR_ID}/${model.idCidade}`}
-                    className="btn btn-info"
-                  >
-                    <span className="btn-icon">
-                      <i>
-                        <FaMagnifyingGlass />
-                      </i>
-                    </span>
-                  </Link>
+                  <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
+                    <Link to={`${ROTA.CIDADE.ATUALIZAR}/${model.idCidade}`} className="btn-minimal text-primary" title="Editar">
+                      <BsPencilSquare size={18} />
+                    </Link>
+                    <Link to={`${ROTA.CIDADE.EXCLUIR}/${model.idCidade}`} className="btn-minimal text-danger" title="Excluir">
+                      <FaRegTrashAlt size={18} />
+                    </Link>
+                    <Link to={`${ROTA.CIDADE.POR_ID}/${model.idCidade}`} className="btn-minimal text-info" title="Visualizar">
+                      <FaMagnifyingGlass size={18} />
+                    </Link>
+                  </div>
                 </td>
               </tr>
             ))}

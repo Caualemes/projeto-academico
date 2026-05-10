@@ -8,6 +8,8 @@ import { ResourceModule } from '../resources/resources.module';
 import { UsuarioModule } from '../usuario/usuario.module';
 import { AuthModule } from '../auth/auth.module';
 
+import { ProfessorModule } from '../professor/professor.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -57,6 +59,7 @@ import { AuthModule } from '../auth/auth.module';
     ResourceModule,
     UsuarioModule,
     AuthModule,
+    ProfessorModule,
   ],
 })
 export class AppModule {}

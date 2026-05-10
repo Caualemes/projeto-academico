@@ -7,8 +7,16 @@ import ConsultarCidade from "../../views/cidade/Consultar";
 import CriarCidade from "../../views/cidade/Criar";
 import ExcluirCidade from "../../views/cidade/Excluir";
 import ListarCidade from "../../views/cidade/Listar";
+import AlterarUsuario from "../../views/usuario/Alterar";
+import ConsultarUsuario from "../../views/usuario/Consultar";
+import ExcluirUsuario from "../../views/usuario/Excluir";
 import CriarUsuario from "../../views/usuario/Criar";
 import ListarUsuario from "../../views/usuario/Listar";
+import AlterarProfessor from "../../views/professor/Alterar";
+import ConsultarProfessor from "../../views/professor/Consultar";
+import CriarProfessor from "../../views/professor/Criar";
+import ExcluirProfessor from "../../views/professor/Excluir";
+import ListarProfessor from "../../views/professor/Listar";
 import Login from "../../views/auth/Login";
 import EsqueciSenha from "../../views/auth/EsqueciSenha";
 import RedefinirSenha from "../../views/auth/RedefinirSenha";
@@ -60,6 +68,18 @@ export const routes: RouteObject[] = [
         element: <ListarUsuario />,
       },
       {
+        path: `${ROTA.USUARIO.ATUALIZAR}/:idUsuario`,
+        element: <AlterarUsuario />,
+      },
+      {
+        path: `${ROTA.USUARIO.EXCLUIR}/:idUsuario`,
+        element: <ExcluirUsuario />,
+      },
+      {
+        path: `${ROTA.USUARIO.POR_ID}/:idUsuario`,
+        element: <ConsultarUsuario />,
+      },
+      {
         path: ROTA.CIDADE.LISTAR,
         element: <ListarCidade />,
       },
@@ -78,6 +98,26 @@ export const routes: RouteObject[] = [
       {
         path: `${ROTA.CIDADE.POR_ID}/:idCidade`,
         element: <ConsultarCidade />,
+      },
+      {
+        path: ROTA.PROFESSOR.LISTAR,
+        element: <ListarProfessor />,
+      },
+      {
+        path: ROTA.PROFESSOR.CRIAR,
+        element: <CriarProfessor />,
+      },
+      {
+        path: `${ROTA.PROFESSOR.ATUALIZAR}/:id`,
+        element: <AlterarProfessor />,
+      },
+      {
+        path: `${ROTA.PROFESSOR.EXCLUIR}/:id`,
+        element: <ExcluirProfessor />,
+      },
+      {
+        path: `${ROTA.PROFESSOR.POR_ID}/:id`,
+        element: <ConsultarProfessor />,
       },
     ],
   }]

@@ -21,3 +21,18 @@ export const apiPostUsuario = async (usuario: Usuario) => {
   const response = await http.post(ROTA.USUARIO.CRIAR, usuario);
   return response;
 };
+
+export const apiGetUsuarioById = async (id: number | string) => {
+  const response = await http.get(`${ROTA.USUARIO.POR_ID}/${id}`);
+  return response;
+};
+
+export const apiUpdateUsuario = async (id: number | string, usuario: Partial<Usuario>) => {
+  const response = await http.put(`${ROTA.USUARIO.ATUALIZAR}/${id}`, usuario);
+  return response;
+};
+
+export const apiDeleteUsuario = async (id: number | string) => {
+  const response = await http.delete(`${ROTA.USUARIO.EXCLUIR}/${id}`);
+  return response;
+};

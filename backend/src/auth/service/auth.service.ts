@@ -50,7 +50,7 @@ export class AuthService {
 
         await this.usuarioServiceFindByEmail.save(user);
 
-        const resetLink = `http://localhost:5173/redefinir-senha?email=${encodeURIComponent(user.email)}&token=${token}`;
+        const resetLink = `http://localhost:3000/redefinir-senha?email=${encodeURIComponent(user.email)}&token=${token}`;
 
         console.log(`\n\n[DEBUG] Link de Recuperação de Senha: ${resetLink}\n\n`);
 
