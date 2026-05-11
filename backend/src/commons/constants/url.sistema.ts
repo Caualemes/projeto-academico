@@ -29,6 +29,8 @@ export const ROTA = {
   PROFESSOR: gerarRotasSistema(PROFESSOR),
   CIDADE: gerarRotasSistema(CIDADE),
   ALUNO: gerarRotasSistema(ALUNO),
+  DISCIPLINA: gerarRotasSistema('disciplina'),
+  AVALIACAO: gerarRotasSistema('avaliacao'),
 };
 
 //criar rotas de forma dinâmica para os endpoints

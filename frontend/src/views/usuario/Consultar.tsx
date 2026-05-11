@@ -88,6 +88,20 @@ export default function ConsultarUsuario() {
               disabled={true}
             />
           </div>
+          <div className="mb-2 mt-4">
+            <label htmlFor="status" className="app-label">
+              Status de Verificação:
+            </label>
+            <input
+              id="status"
+              name="status"
+              value={model?.statusValidacao ? "Verificado" : "Pendente"}
+              className={getInputClass()}
+              readOnly={true}
+              disabled={true}
+              style={{ color: model?.statusValidacao ? '#10b981' : '#f59e0b', fontWeight: 'bold' }}
+            />
+          </div>
           <div className="btn-content mt-4">
             <button
               id="cancel"

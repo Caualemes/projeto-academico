@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, type ChangeEvent, type MouseEvent } from 'react';
-import { FaPlus, FaCheckCircle, FaRegTrashAlt } from 'react-icons/fa';
+import { FaPlus, FaCheckCircle, FaRegTrashAlt, FaExclamationCircle } from 'react-icons/fa';
 import { BsPencilSquare } from 'react-icons/bs';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
@@ -129,8 +129,12 @@ export default function ListarUsuario() {
                 <td><strong>{model.nomeCompleto}</strong></td>
                 <td>{model.username}</td>
                 <td>{model.email}</td>
-                <td className="center" style={{color: '#10b981'}}>
-                   <FaCheckCircle /> Verificado
+                <td className="center" style={{color: model.statusValidacao ? '#10b981' : '#f59e0b'}}>
+                   {model.statusValidacao ? (
+                     <><FaCheckCircle /> Verificado</>
+                   ) : (
+                     <><FaExclamationCircle /> Pendente</>
+                   )}
                 </td>
                 <td className="center actions">
                   <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>

@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { PROFESSOR } from '../../constants/professor.constants';
+import { BaseResponse } from '../../../commons/dto/base.response';
 
-export class ProfessorResponse {
+export class ProfessorResponse extends BaseResponse {
   @ApiProperty({ description: PROFESSOR.SWAGGER.ID_PROFESSOR, example: '1' })
   @Expose()
   idProfessor?: number;

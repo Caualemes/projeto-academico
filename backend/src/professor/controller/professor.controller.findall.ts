@@ -8,6 +8,7 @@ import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { Page } from '../../commons/pagination/page.sistema';
 import { ProfessorResponse } from '../dto/response/professor.response';
 import { ProfessorServiceFindAll } from '../service/professor.service.findall';
+import { geraPageLinks } from '../../commons/utils/hateoas.utils';
 
 @Controller(ROTA.PROFESSOR.BASE)
 @UseGuards(JwtAuthGuard)
@@ -37,7 +38,7 @@ export class ProfessorControllerFindAll {
       response,
       req.path,
       null,
-      null,
+      geraPageLinks(req, response, 'professor'),
     );
   }
 }

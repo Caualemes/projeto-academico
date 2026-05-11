@@ -17,10 +17,25 @@ import ConsultarProfessor from "../../views/professor/Consultar";
 import CriarProfessor from "../../views/professor/Criar";
 import ExcluirProfessor from "../../views/professor/Excluir";
 import ListarProfessor from "../../views/professor/Listar";
+import AlterarAluno from "../../views/aluno/Alterar";
+import ConsultarAluno from "../../views/aluno/Consultar";
+import CriarAluno from "../../views/aluno/Criar";
+import ExcluirAluno from "../../views/aluno/Excluir";
+import ListarAluno from "../../views/aluno/Listar";
 import Login from "../../views/auth/Login";
 import EsqueciSenha from "../../views/auth/EsqueciSenha";
 import RedefinirSenha from "../../views/auth/RedefinirSenha";
 import ConfirmEmail from "../../views/auth/ConfirmEmail";
+import AlterarDisciplina from "../../views/disciplina/Alterar";
+import ConsultarDisciplina from "../../views/disciplina/Consultar";
+import CriarDisciplina from "../../views/disciplina/Criar";
+import ExcluirDisciplina from "../../views/disciplina/Excluir";
+import ListarDisciplina from "../../views/disciplina/Listar";
+import Matricula from "../../views/disciplina/Matricula";
+import LancamentoNotas from "../../views/avaliacao/LancamentoNotas";
+
+
+
 import { PrivateRoute } from "../../components/PrivateRoute";
 import { ROTA } from "./url";
 
@@ -118,6 +133,54 @@ export const routes: RouteObject[] = [
       {
         path: `${ROTA.PROFESSOR.POR_ID}/:id`,
         element: <ConsultarProfessor />,
+      },
+      {
+        path: ROTA.ALUNO.LISTAR,
+        element: <ListarAluno />,
+      },
+      {
+        path: ROTA.ALUNO.CRIAR,
+        element: <CriarAluno />,
+      },
+      {
+        path: `${ROTA.ALUNO.ATUALIZAR}/:id`,
+        element: <AlterarAluno />,
+      },
+      {
+        path: `${ROTA.ALUNO.EXCLUIR}/:id`,
+        element: <ExcluirAluno />,
+      },
+      {
+        path: `${ROTA.ALUNO.POR_ID}/:id`,
+        element: <ConsultarAluno />,
+      },
+      {
+        path: ROTA.DISCIPLINA.LISTAR,
+        element: <ListarDisciplina />,
+      },
+      {
+        path: ROTA.DISCIPLINA.CRIAR,
+        element: <CriarDisciplina />,
+      },
+      {
+        path: `${ROTA.DISCIPLINA.ATUALIZAR}/:id`,
+        element: <AlterarDisciplina />,
+      },
+      {
+        path: `${ROTA.DISCIPLINA.EXCLUIR}/:id`,
+        element: <ExcluirDisciplina />,
+      },
+      {
+        path: `${ROTA.DISCIPLINA.POR_ID}/:id`,
+        element: <ConsultarDisciplina />,
+      },
+      {
+        path: '/sistema/disciplina/matricula',
+        element: <Matricula />,
+      },
+      {
+        path: '/sistema/avaliacao/notas',
+        element: <LancamentoNotas />,
       },
     ],
   }]

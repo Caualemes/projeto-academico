@@ -8,6 +8,7 @@ import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { Page } from '../../commons/pagination/page.sistema';
 import { UsuarioResponse } from '../dto/response/usuario.response';
 import { UsuarioServiceFindAll } from '../service/usuario.service.findall';
+import { geraPageLinks } from '../../commons/utils/hateoas.utils';
 
 @Controller(ROTA.USUARIO.BASE)
 @UseGuards(JwtAuthGuard)
@@ -37,7 +38,7 @@ export class UsuarioControllerFindAll {
       response,
       req.path,
       null,
-      null,
+      geraPageLinks(req, response, 'usuario'),
     );
   }
 }

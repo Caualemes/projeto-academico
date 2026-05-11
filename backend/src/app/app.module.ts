@@ -9,6 +9,11 @@ import { UsuarioModule } from '../usuario/usuario.module';
 import { AuthModule } from '../auth/auth.module';
 
 import { ProfessorModule } from '../professor/professor.module';
+import { AlunoModule } from '../aluno/aluno.module';
+import { DisciplinaModule } from '../disciplina/disciplina.module';
+import { AvaliacaoModule } from '../avaliacao/avaliacao.module';
+import { AlunoDisciplinaModule } from '../aluno_disciplina/aluno-disciplina.module';
+import { AlunoAvaliacaoModule } from '../aluno_avaliacao/aluno-avaliacao.module';
 
 @Module({
   imports: [
@@ -41,25 +46,50 @@ import { ProfessorModule } from '../professor/professor.module';
     MailerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        transport: {
-          host: configService.get('MAIL_HOST') || 'smtp.ethereal.email',
-          port: configService.get('MAIL_PORT') || 587,
-          auth: {
-            user: configService.get('MAIL_USER') || 'test',
-            pass: configService.get('MAIL_PASS') || 'test',
+      useFactory: async (configService: ConfigService) => {
+        let host = configService.get('EMAIL_HOST');
+        let port = configService.get('EMAIL_PORT');
+        let user = configService.get('EMAIL_USER');
+        let pass = configService.get('EMAIL_PASSWORD');
+        let secure = configService.get('EMAIL_SECURE') === 'true';
+
+        if (!user || !pass) {
+          console.log('\n[MAILER] Gerando conta de teste Ethereal para envio de e-mails...\n');
+          const nodemailer = require('nodemailer');
+          const testAccount = await nodemailer.createTestAccount();
+          host = testAccount.smtp.host;
+          port = testAccount.smtp.port;
+          secure = testAccount.smtp.secure;
+          user = testAccount.user;
+          pass = testAccount.pass;
+        }
+
+        return {
+          transport: {
+            host,
+            port,
+            secure,
+            auth: { user, pass },
+            tls: {
+              rejectUnauthorized: configService.get('EMAIL_TLS') !== 'false',
+            }
           },
-        },
-        defaults: {
-          from: '"Projeto Acadêmico" <noreply@projetoacademico.com>',
-        },
-      }),
+          defaults: {
+            from: `"${configService.get('EMAIL_FROM_NAME') || 'Projeto Acadêmico'}" <${configService.get('EMAIL_FROM') || 'noreply@projetoacademico.com'}>`,
+          },
+        };
+      },
     }),
     CidadeModule,
     ResourceModule,
     UsuarioModule,
     AuthModule,
     ProfessorModule,
+    AlunoModule,
+    DisciplinaModule,
+    AvaliacaoModule,
+    AlunoDisciplinaModule,
+    AlunoAvaliacaoModule,
   ],
 })
 export class AppModule {}

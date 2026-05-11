@@ -52,14 +52,41 @@ export class UsuarioServiceCreate {
 
     const confirmLink = `http://localhost:3000/confirmar-email?email=${encodeURIComponent(savedUsuario.email)}&token=${activationToken}`;
 
-    console.log(`\n\n[DEBUG] Link de Ativação de Conta: ${confirmLink}\n\n`);
+    console.log(`\n\n[DEBUG] Link de Ativação de Conta gerado internamente: ${confirmLink}`);
 
-    await this.mailerService.sendMail({
-      to: savedUsuario.email,
-      subject: 'Confirmação de E-mail - Projeto Acadêmico',
-      text: `Bem-vindo! Clique no link para confirmar seu e-mail: ${confirmLink}`,
-      html: `<p>Bem-vindo!</p><p><a href="${confirmLink}">Clique aqui para confirmar seu e-mail</a></p>`,
-    }).catch(err => console.error('Aviso: E-mail de ativação não enviado (configure SMTP). Use o link do console.'));
+    try {
+      const info = await this.mailerService.sendMail({
+        to: savedUsuario.email,
+        subject: 'Confirmação de E-mail - Projeto Acadêmico',
+        text: `Bem-vindo! Clique no link para confirmar seu e-mail: ${confirmLink}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #333; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px;">
+            <h2 style="color: #3b82f6;">Bem-vindo ao Projeto Acadêmico!</h2>
+            <p>Olá, ${savedUsuario.firstName}!</p>
+            <p>Sua conta foi criada com sucesso, mas você precisa confirmar seu endereço de e-mail para ativá-la.</p>
+            <div style="margin: 30px 0; text-align: center;">
+              <a href="${confirmLink}" style="background-color: #3b82f6; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
+                Confirmar Meu E-mail
+              </a>
+            </div>
+            <p style="font-size: 0.85em; color: #6b7280; text-align: center;">
+              Se o botão não funcionar, copie e cole este link no seu navegador:<br>
+              <a href="${confirmLink}" style="color: #3b82f6;">${confirmLink}</a>
+            </p>
+          </div>
+        `,
+      });
+
+      const nodemailer = require('nodemailer');
+      const testUrl = nodemailer.getTestMessageUrl(info);
+      if (testUrl) {
+        console.log(`\n[MAILER] 📧 E-mail de Ativação de Conta capturado pelo Ethereal! Visualização rápida: ${testUrl}\n`);
+      } else {
+        console.log('\n[MAILER] E-mail de ativação enviado com sucesso pelo provedor configurado.\n');
+      }
+    } catch (err) {
+      console.error('\n[MAILER] Erro ao enviar e-mail de ativação. Verifique sua configuração SMTP no .env', err);
+    }
 
     return ConverterUsuario.toUsuarioResponse(savedUsuario);
   }

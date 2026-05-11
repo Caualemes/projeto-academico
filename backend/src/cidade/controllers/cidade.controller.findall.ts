@@ -44,7 +44,9 @@ export class CidadeControllerFindAll {
       response,
       req.path,
       null,
-      null,
+      {
+        create: { href: `${ROTA.CIDADE.BASE}/criar`, method: 'POST' },
+      },
     );
   }
 }

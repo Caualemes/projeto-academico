@@ -6,6 +6,7 @@ import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { UsuarioResponse } from '../dto/response/usuario.response';
 import { UsuarioServiceFindById } from '../service/usuario.service.findbyid';
+import { gerarLinks } from '../../commons/utils/hateoas.utils';
 
 @Controller(ROTA.USUARIO.BASE)
 @UseGuards(JwtAuthGuard)
@@ -25,7 +26,7 @@ export class UsuarioControllerFindById {
       response,
       req.path,
       null,
-      null,
+      gerarLinks(req, 'usuario', id),
     );
   }
 }

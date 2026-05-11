@@ -6,6 +6,7 @@ import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { ProfessorResponse } from '../dto/response/professor.response';
 import { ProfessorServiceFindById } from '../service/professor.service.findbyid';
+import { gerarLinks } from '../../commons/utils/hateoas.utils';
 
 @Controller(ROTA.PROFESSOR.BASE)
 @UseGuards(JwtAuthGuard)
@@ -25,7 +26,7 @@ export class ProfessorControllerFindById {
       response,
       req.path,
       null,
-      null,
+      gerarLinks(req, 'professor', id),
     );
   }
 }

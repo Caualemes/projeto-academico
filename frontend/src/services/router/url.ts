@@ -24,4 +24,7 @@ export const ROTA = {
   CIDADE: gerarRotaSistema(CIDADE.ALIAS),
   USUARIO: gerarRotaSistema('usuario'),
   PROFESSOR: gerarRotaSistema('professor'),
+  ALUNO: gerarRotaSistema('aluno'),
+  DISCIPLINA: gerarRotaSistema('disciplina'),
+  AVALIACAO: gerarRotaSistema('avaliacao'),
 };

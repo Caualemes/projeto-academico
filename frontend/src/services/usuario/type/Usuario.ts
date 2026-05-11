@@ -7,4 +7,5 @@ export interface Usuario {
   password?: string;
   confirmPassword?: string;
   nomeCompleto?: string;
+  statusValidacao?: boolean;
 }

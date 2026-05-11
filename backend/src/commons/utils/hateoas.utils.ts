@@ -12,11 +12,13 @@ export function gerarLinks(
 ): Record<string, Link> {
   const protocol = req.protocol;
   const host = req.get('host');
-
-  //http://localhost:8000/rest/sistema/cidade/
   const baseUrl = `${protocol}://${host}/${ROTA_SISTEMA}/${entity.toLowerCase()}`;
 
   const link: Record<string, Link> = {
+    self: {
+      href: id ? `${baseUrl}/buscar/${id}` : `${baseUrl}/listar`,
+      method: 'GET',
+    },
     listar: {
       href: `${baseUrl}/listar`,
       method: 'GET',
@@ -28,17 +30,13 @@ export function gerarLinks(
   };
 
   if (id) {
-    link.buscar = {
-      href: `${baseUrl}/buscar/${id}`,
-      method: 'GET',
-    };
     link.alterar = {
       href: `${baseUrl}/alterar/${id}`,
       method: 'PUT',
     };
     link.excluir = {
       href: `${baseUrl}/excluir/${id}`,
-      method: 'PUT',
+      method: 'DELETE',
     };
   }
 
@@ -49,10 +47,24 @@ export function geraPageLinks(
   req: Request,
   page: Page<any>,
   entity: string,
-): Record<string, Link> | null {
+): Record<string, Link> {
   const protocol = req.protocol;
   const host = req.get('host');
-  const baseUrl = `${protocol}://${host}/${ROTA_SISTEMA}/${entity.toLowerCase()}`;
+  const baseUrl = `${protocol}://${host}/${ROTA_SISTEMA}/${entity.toLowerCase()}/listar`;
 
-  return null;
+  const links: Record<string, Link> = {
+    self: { href: `${protocol}://${host}${req.originalUrl}`, method: 'GET' },
+    first: { href: `${baseUrl}?page=1&pageSize=${page.pageSize}`, method: 'GET' },
+    last: { href: `${baseUrl}?page=${page.totalPages}&pageSize=${page.pageSize}`, method: 'GET' },
+  };
+
+  if (page.page > 1) {
+    links.prev = { href: `${baseUrl}?page=${page.page - 1}&pageSize=${page.pageSize}`, method: 'GET' };
+  }
+
+  if (page.page < page.totalPages) {
+    links.next = { href: `${baseUrl}?page=${page.page + 1}&pageSize=${page.pageSize}`, method: 'GET' };
+  }
+
+  return links;
 }

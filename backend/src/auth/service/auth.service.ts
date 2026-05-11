@@ -52,14 +52,26 @@ export class AuthService {
 
         const resetLink = `http://localhost:3000/redefinir-senha?email=${encodeURIComponent(user.email)}&token=${token}`;
 
-        console.log(`\n\n[DEBUG] Link de Recuperação de Senha: ${resetLink}\n\n`);
+        console.log(`\n\n[DEBUG] Link de Recuperação de Senha gerado internamente: ${resetLink}`);
 
-        await this.mailerService.sendMail({
-            to: user.email,
-            subject: 'Recuperação de Senha - Projeto Acadêmico',
-            text: `Você solicitou a recuperação de senha. Clique no link para redefinir: ${resetLink}`,
-            html: `<p>Você solicitou a recuperação de senha.</p><p><a href="${resetLink}">Clique aqui para redefinir sua senha</a></p>`,
-        }).catch(err => console.error('Aviso: E-mail não enviado (configure o SMTP em app.module.ts). Use o link do console para testar.'));
+        try {
+            const info = await this.mailerService.sendMail({
+                to: user.email,
+                subject: 'Recuperação de Senha - Projeto Acadêmico',
+                text: `Você solicitou a recuperação de senha. Clique no link para redefinir: ${resetLink}`,
+                html: `<p>Você solicitou a recuperação de senha.</p><p><a href="${resetLink}">Clique aqui para redefinir sua senha</a></p>`,
+            });
+
+            const nodemailer = require('nodemailer');
+            const testUrl = nodemailer.getTestMessageUrl(info);
+            if (testUrl) {
+                console.log(`\n[MAILER] 📧 E-mail de teste capturado pelo Ethereal! Visualização rápida: ${testUrl}\n`);
+            } else {
+                console.log('\n[MAILER] E-mail enviado com sucesso pelo provedor configurado.\n');
+            }
+        } catch (err) {
+            console.error('\n[MAILER] Erro ao enviar e-mail. Verifique sua configuração SMTP no .env', err);
+        }
 
         return { message: 'Se o e-mail existir, um link de recuperação foi enviado.' };
     }

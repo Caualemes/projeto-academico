@@ -12,6 +12,10 @@ export default function Layout() {
         <Link to="/sistema/cidade/listar">Cidade</Link>
         <Link to="/sistema/usuario/listar">Usuários</Link>
         <Link to="/sistema/professor/listar">Professores</Link>
+        <Link to="/sistema/aluno/listar">Alunos</Link>
+        <Link to="/sistema/disciplina/listar">Disciplinas</Link>
+        <Link to="/sistema/disciplina/matricula">Matrícula</Link>
+        <Link to="/sistema/avaliacao/notas">Notas</Link>
       </aside>
       <div className="content">
         <header>

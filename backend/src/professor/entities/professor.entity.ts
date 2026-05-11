@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from '../../commons/entity/base.entity';
 import { Usuario } from '../../usuario/entities/usuario.entity';
+import { Cidade } from '../../cidade/entity/cidade.entity';
 
 @Entity('professor')
 export class Professor extends BaseEntity {
@@ -32,6 +33,13 @@ export class Professor extends BaseEntity {
 
   @Column({ name: 'ID_USUARIO', type: 'int', nullable: false })
   idUsuario!: number;
+
+  @ManyToOne(() => Cidade)
+  @JoinColumn({ name: 'ID_CIDADE' })
+  cidade?: Cidade;
+
+  @Column({ name: 'ID_CIDADE', type: 'int', nullable: true })
+  idCidade?: number;
 
   constructor(data: Partial<Professor> = {}) {
     super();

@@ -1,4 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react';
+import { MdCancel } from "react-icons/md";
+import { BsPencilSquare } from "react-icons/bs";
 import { useNavigate, useParams } from 'react-router-dom';
 import { apiGetProfessorById, apiUpdateProfessor } from '../../services/professor/api/api.professor';
 import { PROFESSOR } from '../../services/professor/constants/professor.constants';
@@ -72,34 +74,45 @@ export default function AlterarProfessor() {
           <p>Carregando dados...</p>
         ) : (
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Código:</label>
+            <div className="mb-2 mt-4">
+              <label htmlFor="codProfessor" className="app-label">
+                Código:
+              </label>
               <input
+                id="codProfessor"
                 type="text"
                 name="codProfessor"
                 value={professor.codProfessor}
                 onChange={handleChange}
+                className="form-control app-label mt-2"
                 required
               />
             </div>
-            <div className="form-group">
-              <label>Nome:</label>
+            <div className="mb-2 mt-4">
+              <label htmlFor="nomeProfessor" className="app-label">
+                Nome:
+              </label>
               <input
+                id="nomeProfessor"
                 type="text"
                 name="nomeProfessor"
                 value={professor.nomeProfessor}
                 onChange={handleChange}
+                className="form-control app-label mt-2"
                 required
               />
             </div>
-            <div className="form-group">
-              <label>Usuário Vinculado:</label>
+            <div className="mb-2 mt-4">
+              <label htmlFor="idUsuario" className="app-label">
+                Usuário Vinculado:
+              </label>
               <select
+                id="idUsuario"
                 name="idUsuario"
                 value={professor.idUsuario}
                 onChange={handleChange}
                 required
-                style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+                className="form-control app-label mt-2"
               >
                 <option value={0}>Selecione um usuário...</option>
                 {usuarios.map((user) => (
@@ -109,16 +122,33 @@ export default function AlterarProfessor() {
                 ))}
               </select>
             </div>
-            <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
-              <button type="submit" className="btn btn-add">
-                Salvar
+            <div className="btn-content mt-4">
+              <button
+                id="cancel"
+                type="button"
+                className="btn btn-cancel"
+                onClick={() => navigate(ROTA.PROFESSOR.LISTAR)}
+                title="Cancelar a Edição"
+              >
+                <span className="btn-icon">
+                  <i>
+                    <MdCancel />
+                  </i>
+                </span>
+                Cancelar
               </button>
               <button
-                type="button"
-                className="btn btn-default"
-                onClick={() => navigate(ROTA.PROFESSOR.LISTAR)}
+                id="submit"
+                type="submit"
+                className="btn btn-edit"
+                title="Salvar alterações"
               >
-                Cancelar
+                <span className="btn-icon">
+                  <i>
+                    <BsPencilSquare />
+                  </i>
+                </span>
+                Salvar
               </button>
             </div>
           </form>
