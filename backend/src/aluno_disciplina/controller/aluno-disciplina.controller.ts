@@ -25,7 +25,7 @@ export class AlunoDisciplinaController {
       response,
       req.path,
       null,
-      null,
+      { self: { href: `${req.protocol}://${req.get('host')}${req.originalUrl}`, method: req.method } },
     );
   }
 
@@ -43,7 +43,7 @@ export class AlunoDisciplinaController {
       response,
       req.path,
       null,
-      null,
+      { self: { href: `${req.protocol}://${req.get('host')}${req.originalUrl}`, method: req.method } },
     );
   }
 
@@ -61,7 +61,7 @@ export class AlunoDisciplinaController {
       response,
       req.path,
       null,
-      null,
+      { self: { href: `${req.protocol}://${req.get('host')}${req.originalUrl}`, method: req.method } },
     );
   }
 }

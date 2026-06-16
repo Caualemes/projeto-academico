@@ -4,6 +4,7 @@ import { JwtAuthGuard } from '../../auth/config/guards/jwt-auth.guard';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
+import { gerarLinks } from '../../commons/utils/hateoas.utils';
 import { ProfessorServiceDelete } from '../service/professor.service.delete';
 
 @Controller(ROTA.PROFESSOR.BASE)
@@ -24,7 +25,7 @@ export class ProfessorControllerDelete {
       response,
       req.path,
       null,
-      null,
+      gerarLinks(req, 'professor'),
     );
   }
 }

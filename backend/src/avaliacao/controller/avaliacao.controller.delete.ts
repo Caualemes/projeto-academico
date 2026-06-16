@@ -4,6 +4,7 @@ import { JwtAuthGuard } from '../../auth/config/guards/jwt-auth.guard';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
+import { gerarLinks } from '../../commons/utils/hateoas.utils';
 import { AvaliacaoServiceDelete } from '../service/avaliacao.service.delete';
 
 @Controller(ROTA.AVALIACAO.BASE)
@@ -25,7 +26,7 @@ export class AvaliacaoControllerDelete {
       null,
       req.path,
       null,
-      null,
+      gerarLinks(req, 'avaliacao'),
     );
   }
 }

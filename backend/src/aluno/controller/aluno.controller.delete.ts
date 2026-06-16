@@ -3,6 +3,7 @@ import { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
+import { gerarLinks } from '../../commons/utils/hateoas.utils';
 import { AlunoServiceDelete } from '../service/aluno.service.delete';
 import { JwtAuthGuard } from '../../auth/config/guards/jwt-auth.guard';
 
@@ -25,7 +26,7 @@ export class AlunoControllerDelete {
       null,
       req.path,
       null,
-      null,
+      gerarLinks(req, 'aluno'),
     );
   }
 }

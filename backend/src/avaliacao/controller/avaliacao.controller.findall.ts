@@ -4,6 +4,7 @@ import { JwtAuthGuard } from '../../auth/config/guards/jwt-auth.guard';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
+import { geraPageLinks } from '../../commons/utils/hateoas.utils';
 import { PAGINATION } from '../../commons/enum/paginacao.enum';
 import { Page } from '../../commons/pagination/page.sistema';
 import { AvaliacaoResponse } from '../dto/response/avaliacao.response';
@@ -40,7 +41,7 @@ export class AvaliacaoControllerFindAll {
       response,
       req.path,
       null,
-      null,
+      geraPageLinks(req, response, 'avaliacao'),
     );
   }
 }

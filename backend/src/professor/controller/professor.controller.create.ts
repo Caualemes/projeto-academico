@@ -4,6 +4,7 @@ import { JwtAuthGuard } from '../../auth/config/guards/jwt-auth.guard';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
+import { gerarLinks } from '../../commons/utils/hateoas.utils';
 import { CreateProfessorDto } from '../dto/create-professor.dto';
 import { ProfessorResponse } from '../dto/response/professor.response';
 import { ProfessorServiceCreate } from '../service/professor.service.create';
@@ -26,7 +27,7 @@ export class ProfessorControllerCreate {
       response,
       req.path,
       null,
-      null,
+      gerarLinks(req, 'professor', response.idProfessor),
     );
   }
 }

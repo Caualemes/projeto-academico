@@ -3,6 +3,7 @@ import { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
+import { gerarLinks } from '../../commons/utils/hateoas.utils';
 import { CreateUsuarioDto } from '../dto/create-usuario.dto';
 import { UsuarioResponse } from '../dto/response/usuario.response';
 import { UsuarioServiceCreate } from '../service/usuario.service.create';
@@ -25,7 +26,7 @@ export class UsuarioControllerCreate {
       response,
       req.path,
       null,
-      null,
+      gerarLinks(req, 'usuario', response.idUsuario),
     );
   }
 }

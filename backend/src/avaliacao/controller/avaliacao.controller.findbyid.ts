@@ -4,6 +4,7 @@ import { JwtAuthGuard } from '../../auth/config/guards/jwt-auth.guard';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
+import { gerarLinks } from '../../commons/utils/hateoas.utils';
 import { AvaliacaoResponse } from '../dto/response/avaliacao.response';
 import { AvaliacaoServiceFindById } from '../service/avaliacao.service.findbyid';
 
@@ -26,7 +27,7 @@ export class AvaliacaoControllerFindById {
       response,
       req.path,
       null,
-      null,
+      gerarLinks(req, 'avaliacao', response.idAvaliacao),
     );
   }
 }
