@@ -12,7 +12,7 @@ export default function EsqueciSenha() {
     setLoading(true);
     try {
       const response = await http.post('/auth/esqueci-senha', { email });
-      toast.success(response.data.message || 'Link de recuperação enviado.');
+      toast.success(response.data.message || 'Link de recuperação enviado. Por favor, cheque sua caixa de entrada.');
       setEmail('');
     } catch (err: any) {
       toast.error('Ocorreu um erro ao solicitar a recuperação.');

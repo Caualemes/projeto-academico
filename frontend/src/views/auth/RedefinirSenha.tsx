@@ -26,6 +26,11 @@ export default function RedefinirSenha() {
       toast.error('A senha deve ter no mínimo 6 caracteres.');
       return;
     }
+    const regexEspecial = /[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/;
+    if (!regexEspecial.test(novaSenha)) {
+      toast.error('A senha deve conter pelo menos um caractere especial.');
+      return;
+    }
     
     setLoading(true);
     try {

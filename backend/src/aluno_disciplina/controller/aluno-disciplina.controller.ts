@@ -16,7 +16,7 @@ export class AlunoDisciplinaController {
   async matricular(
     @Req() req: Request,
     @Body() dto: MatricularDto,
-  ): Promise<Result<any>> {
+  ): Promise<Result<any>> { 
     const response = await this.service.matricular(dto);
 
     return MensagemSistema.showMensagem(
